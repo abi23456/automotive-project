@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automotive Products - Production and Quality</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <center>
+    <header>
+        <div class="logo">
+            <img src="Downloads/logo.jpeg" alt="Automotive Products">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="automobil.html">Home</a></li>
+                <li><a href="product.html">Products</a></li>
+                <li><a href="production.html">Production</a></li>
+                <li><a href="quality.html">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="cart">
+        <h2>Shopping Cart</h2>
+        
+        <div class="item" id="engine-item">
+          <img src="Downloads/engine.jpeg" alt="Product 1">
+          <div class="details">
+            <h3>ENGINE</h3>
+            <div class="quantity">
+              Qty: <input type="number" value="" min="0" max="10" id="engine-quantity">
+            </div>
+            <div class="price">$<span id="engine-price">1000</span></div>
+          </div>
+          <button class="remove" onclick="removeItem('engine')">Remove</button>
+        </div>
+        
+        <div class="item" id="clutch-item">
+          <img src="Downloads/clutch.jpeg" alt="Product 2">
+          <div class="details">
+            <h3>CLUTCH</h3>
+            <div class="quantity">
+              Qty: <input type="number" value="" min="0" max="10" id="clutch-quantity">
+            </div>
+            <div class="price">$<span id="clutch-price">800</span></div>
+          </div>
+          <button class="remove" onclick="removeItem('clutch')">Remove</button>
+        </div>
+        
+        <div class="item" id="battery-item">
+          <img src="Downloads/brake.jpeg" alt="Product 3" >
+          <div class="details">
+            <h3>Brake</h3>
+            <div class="quantity">
+              Qty: <input type="number" value="" min="0" max="10" id="battery-quantity">
+            </div>
+            <div class="price">$<span id="battery-price">750</span></div>
+          </div>
+          <button class="remove" onclick="removeItem('battery')">Remove</button>
+        </div>
+        
+        <div class="total">
+          Total: <span id="total">$0.00</span>
+        </div>
+        
+        <a href="payment.html"><button class="checkout">Proceed to Checkout</button></a>
+        
+        <!-- Payment Options -->
+        <div class="payment-options">
+          <h2>Payment Options</h2>
+          <ul>
+            <li>
+              <input type="radio" name="payment-option" id="credit-card" checked>
+              <label for="credit-card">Credit Card</label>
+            </li>
+            <li>
+              <input type="radio" name="payment-option" id="paypal">
+              <label for="paypal">PayPal</label>
+            </li>
+            <li>
+              <input type="radio" name="payment-option" id="bank-transfer">
+              <label for="bank-transfer">Bank Transfer</label>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- JavaScript -->
+        <script>
+          let cartTotal = 0;
+          const engineQuantity = document.getElementById('engine-quantity');
+          const clutchQuantity = document.getElementById('clutch-quantity');
+          const batteryQuantity = document.getElementById('battery-quantity');
+          const cartTotalElement = document.getElementById('total');
+          const paymentOptions = document.querySelector('.payment-options');
+          const paymentOptionRadios = paymentOptions.querySelectorAll('input[name="payment-option"]');
+  
+          engineQuantity.addEventListener('input', () => {
+            const enginePrice = parseInt(document.getElementById('engine-price').textContent.replace('$', ''));
+            cartTotal = updateTotal(engineQuantity.value, enginePrice, cartTotal);
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+          });
+  
+          clutchQuantity.addEventListener('input', () => {
+            const clutchPrice = parseInt(document.getElementById('clutch-price').textContent.replace('$', ''));
+            cartTotal = updateTotal(clutchQuantity.value, clutchPrice, cartTotal);
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+          });
+  
+          batteryQuantity.addEventListener('input', () => {
+            const batteryPrice = parseInt(document.getElementById('battery-price').textContent.replace('$', ''));
+            cartTotal = updateTotal(batteryQuantity.value, batteryPrice, cartTotal);
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+          });
+  
+          paymentOptionRadios.forEach((radio) => {
+            radio.addEventListener('change', () => {
+              const paymentOption = radio.id;
+              console.log(`Selected Payment Option: ${paymentOption}`);
+            });
+          });
+  
+          function removeItem(itemId) {
+            const itemElement = document.getElementById(`${itemId}-item`);
+            const itemPrice = parseInt(itemElement.querySelector('.price span').textContent.replace('$', ''));
+            const itemQuantity = parseInt(itemElement.querySelector('input[type="number"]').value);
+            cartTotal = updateTotal(-itemQuantity, itemPrice, cartTotal);
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+            itemElement.remove();
+            // Update the quantity inputs
+            if (itemId === 'engine') {
+              engineQuantity.value = 0;
+            } else if (itemId === 'clutch') {
+              clutchQuantity.value = 0;
+            } else if (itemId === 'battery') {
+              batteryQuantity.value = 0;
+            }
+          }
+  
+          function updateTotal(quantity, price, total) {
+            return total + quantity * price;
+          }
+  
+          $(document).ready(function(){
+            $('#engine-quantity').change(function(){ updateCost(); });
+            $('#clutch-quantity').change(function(){ updateCost(); });
+            $('#battery-quantity').change(function(){ updateCost(); });
+          });
+  
+          function updateCost() {
+            const engineQuantity = parseInt($('#engine-quantity').val());
+            const clutchQuantity = parseInt($('#clutch-quantity').val());
+            const batteryQuantity = parseInt($('#battery-quantity').val());
+
+            const enginePrice = parseInt(document.getElementById('engine-price').textContent.replace('$', ''));
+            const clutchPrice = parseInt(document.getElementById('clutch-price').textContent.replace('$', ''));
+            const batteryPrice = parseInt(document.getElementById('battery-price').textContent.replace('$', ''));
+
+            const engineTotal = engineQuantity * enginePrice;
+            const clutchTotal = clutchQuantity * clutchPrice;
+            const batteryTotal = batteryQuantity * batteryPrice;
+
+            const total = engineTotal + clutchTotal + batteryTotal;
+
+            $("#total").html(total);
+            $("#grandtotal").html(total);
+          }
+        </script>
+    </div>
+    </center>
+</body>
+</html>

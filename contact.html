@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automotive Quality Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="Downloads/logo.jpeg" alt="Automotive Products">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="automobil.html">Home</a></li>
+                <li><a href="product.html">Products</a></li>
+                <li><a href="production.html">Production</a></li>
+                <li><a href="quality.html">Quality</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    <center>
+    <section id="about">
+        <style>
+        p{text-align: center};
+        h2{text-align: center};
+    </style>
+      <h2>About Us</h2>
+      <p>Car Parts Production is a trusted name in the industry, specializing in the production of top-notch car parts. With a focus on quality and innovation, we strive to meet the needs of our customers.</p>
+    </section>
+  
+  <div class="formcarry-container">
+    <form action="form-process.php" method="POST" class="formcarry-form">
+      <div class="fcf-form-group">
+        <label for="Name" class="fcf-label"><b>Your name</b></label>
+        <div class="fcf-input-group">
+          <input type="text" id="Name" name="Name" class="fcf-form-control" required>
+        </div>
+      </div>
+
+      <div class="fcf-form-group">
+        <label for="Email" class="fcf-label"><b>Your email address</b></label>
+        <div class="fcf-input-group">
+          <input type="email" id="Email" name="Email" class="fcf-form-control" required>
+        </div>
+      </div>
+      </form>
+
+      <div class="fcf-form-group">
+        <label for="Message" class="fcf-label"><b>Your message</b></label>
+        <div class="fcf-input-group">
+          <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+        </div>
+      </div>
+
+      <div class="fcf-form-group">
+        <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
+    </div>
+    </form>
+  </div>
+</center>
+  <script src="script.js"></script>
+</body>
+</html>
